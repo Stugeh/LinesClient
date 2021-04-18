@@ -25,7 +25,7 @@ const Login = () => {
       username: username.value,
       password: password.value,
     };
-    // TODO fix post
+    // TODO save url to env variable so this can work.
     const res = await axios.post(user);
     console.log('res: ', res);
     // window.localStorage.setItem('authToken', `bearer ${res.token}`);
@@ -36,9 +36,9 @@ const Login = () => {
   return (
     <div className='login'>
       <form className={classes.root} onSubmit={handleLogin}>
-        <TextField {...username}/>
-        <TextField {...password}/>
-        <Button variant='contained' color='primary' type="submit">save</Button>
+        <TextField {...username}/><br/>
+        <TextField {...password}/><br/>
+        <Button variant='contained' color='primary' type="submit">login</Button>
       </form>
     </div>
   );
