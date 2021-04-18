@@ -26,10 +26,14 @@ const Login = () => {
       password: password.value,
     };
     // TODO save url to env variable so this can work.
-    const res = await axios.post(user);
+    const res = await axios.post('/', user);
     console.log('res: ', res);
-    // window.localStorage.setItem('authToken', `bearer ${res.token}`);
+    if (res.status===201) {
+      // TODO the token probably wont be in res.token
+      window.localStorage.setItem('authToken', `bearer ${res.token}`);
+    }
     usernameReset();
+
     passwordReset();
   };
 
