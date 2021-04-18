@@ -28,6 +28,7 @@ const Login = () => {
     // TODO fix post
     const res = await axios.post(user);
     console.log('res: ', res);
+    // window.localStorage.setItem('authToken', `bearer ${res.token}`);
     usernameReset();
     passwordReset();
   };
