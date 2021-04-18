@@ -3,7 +3,7 @@ import './App.css';
 
 import MainMenu from './components/MainMenu/MainMenu';
 import GameSetup from './components/GameSetup/GameSetup';
-
+import Login from './components/Login';
 
 const App = () => {
   // State variables
@@ -13,6 +13,7 @@ const App = () => {
   return (
     <div>
       <div className='gameWindow'>
+        <Login/>
         {gameView === 'mainMenu' ? (
             <MainMenu
               setGameView={setGameView}
