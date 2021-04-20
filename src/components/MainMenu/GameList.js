@@ -15,7 +15,7 @@ const GameList = () => {
   // eslint-disable-next-line no-unused-vars
   const {reset: searchReset, ...search} = useField('text', 'search');
 
-  const [games, setGames] = useState([]);
+  const [games, setGames] = useState([1]);
   useEffect(async () => {
     // TODO fix links
     // const res = await axios.get(`${API_URL}/games/`);
@@ -27,15 +27,18 @@ const GameList = () => {
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
+
         <TableHead>
           <TableRow>
             <TableCell><TextField {...search} /></TableCell>
             <TableCell>rules</TableCell>
           </TableRow>
         </TableHead>
+
         <TableBody>
 
         </TableBody>
+
       </Table>
     </TableContainer>
   );
