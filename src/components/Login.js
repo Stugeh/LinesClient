@@ -1,11 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useField} from '../hooks/formHook';
-import axios from 'axios';
+// import axios from 'axios';
 import {makeStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
-const API_URL = '';
+import Notification from './Notification';
+
+// const API_URL = '';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,37 +18,53 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const createUser = async () => {
-  await axios.post(`${API_URL}/users/`, user);
-};
+// TODO
+// const createUser = async () => {
+//   await axios.post(`${API_URL}/users/`, user);
+// };
+
+// const postLogin = async ({user}) => {
+//   const res = await axios.post(`${API_URL}/login/`, user);
+//   if (res.status===201) {
+//     // TODO the token probably wont be in res.token
+//     window.localStorage.setItem('authToken', `bearer ${res.token}`);
+//   } else {
+//     setNotification({open: true, message: 'login failed'});
+//   }
+// };
 
 const Login = () => {
   const {reset: usernameReset, ...username} = useField('text', 'username');
   const {reset: passwordReset, ...password} = useField('text', 'password');
   const classes = useStyles();
+  const [notification, setNotification] = useState({
+    open: false,
+    message: '',
+  });
 
   const handleLogin = async (event) => {
     event.preventDefault();
-    const user = {
-      username: username.value,
-      password: password.value,
-    };
-    if (!await axios.get(`${API_URL}/user/${username.value}`)) {
-      createUser();
-    }
-    const res = await axios.post(`${API_URL}/login/`, user);
-    if (res.status===201) {
-      // TODO the token probably wont be in res.token
-      window.localStorage.setItem('authToken', `bearer ${res.token}`);
-    } else {
-
-    }
+    // TODO
+    // const user = {
+    //   username: username.value,
+    //   password: password.value,
+    // };
+    setNotification({open: true, message: 'login failed'});
+    // const res = await axios.get(`${API_URL}/user/${username.value}`);
+    // if (res.status !== 200) {
+    //   createUser();
+    // }
+    // postLogin(user);
     usernameReset();
     passwordReset();
   };
 
   return (
     <div className='login'>
+      <Notification
+        notification={notification}
+        setNotification={setNotification}
+      />
       <h1>Login/Create new user</h1>
       <form className={classes.root} onSubmit={handleLogin}>
         <TextField {...username}/><br/>

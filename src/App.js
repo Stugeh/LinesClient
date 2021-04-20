@@ -10,10 +10,7 @@ const App = () => {
   const [gameView, setGameView] = useState('mainMenu');
   const [activeMode, setActiveMode] = useState('singlePlayer');
 
-
-  if (!window.localStorage.getItem('authToken')) {
-    return <Login/>;
-  };
+  if (!window.localStorage.getItem('authToken')) return <Login />;
 
   return (
     <div>
