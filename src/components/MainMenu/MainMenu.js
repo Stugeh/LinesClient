@@ -1,14 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 // Material UI button component. Material UI docs at https://material-ui.com/components/buttons/
 import {Button} from '@material-ui/core';
-// Material UI icons
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 
-//
-// MainMenu Component.
-// The smaller pieces will eventully be moved to their
-// own component functions in other files.
-//
+import GameList from './GameList';
 
 const playButtonStyle = {
   paddingLeft: '50px',
@@ -19,17 +13,28 @@ const playButtonStyle = {
   color: 'white',
 };
 
+//
+// MainMenu Component.
+// The smaller pieces will eventully be moved to their
+// own component functions in other files.
 const MainMenu = ({setGameView}) => {
+  const [gameListToggle, setGameListToggle] = useState(false);
+
   return (
     <div className='mainMenu'>
       <Button
         style={playButtonStyle}
         onClick={() => setGameView('gameSetup')}
       >
-        <PlayArrowIcon fontSize='large'/>
         Create game
+      </Button><br/>
+      <Button
+        style={{...playButtonStyle, backgroundColor: 'orange'}}
+        onClick={() => setGameListToggle(!gameListToggle)}
+      >
+        Join game
       </Button>
-      <br/>
+      <GameList isHidden={gameListToggle}/>
     </div>
   );
 };

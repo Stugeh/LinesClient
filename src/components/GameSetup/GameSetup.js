@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {Button} from '@material-ui/core';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 
 const playButtonStyle = {
   paddingTop: '0px',
@@ -25,7 +24,6 @@ const GameSetup = ({setGameView}) => {
           color='primary'
           onClick={() => setGameView('game')}
         >
-          <PlayArrowIcon fontSize='large'/>
             Play
         </Button>
       </div>
