@@ -4,9 +4,6 @@ import {Button} from '@material-ui/core';
 // Material UI icons
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 
-// Title logo at the top of the screen
-import logo from '../../assets/title.png';
-
 import MenuRules from './MenuRules';
 import ModeToggle from '../ModeToggle';
 
@@ -27,8 +24,6 @@ const MainMenu = ({setGameView, setActiveMode, activeMode}) => {
 
   return (
     <div className='mainMenu'>
-      <img src={logo} alt="Pictionary" width='400'/>
-      <br/>
       <Button
         variant='contained'
         color='primary'

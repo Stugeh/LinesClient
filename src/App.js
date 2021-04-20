@@ -10,26 +10,28 @@ const App = () => {
   const [gameView, setGameView] = useState('mainMenu');
   const [activeMode, setActiveMode] = useState('singlePlayer');
 
+
+  if (!window.localStorage.getItem('authToken')) {
+    return <Login/>;
+  };
+
   return (
     <div>
-      <div className='gameWindow'>
-        <Login/>
-        {gameView === 'mainMenu' ? (
+      {gameView === 'mainMenu' ? (
             <MainMenu
               setGameView={setGameView}
               setActiveMode={setActiveMode}
               activeMode={activeMode}
             />
           ):<></>
-        }
-        {gameView === 'gameSetup' ? (
+      }
+      {gameView === 'gameSetup' ? (
             <GameSetup
               setGameView={setGameView}
               setActiveMode={setActiveMode}
               activeMode={activeMode}
             />
           ):<></>}
-      </div>
     </div>
   );
 };

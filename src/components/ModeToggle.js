@@ -8,6 +8,7 @@ import PeopleAltSharpIcon from '@material-ui/icons/PeopleAltSharp';
 const ModeToggle = ({setActiveMode, activeMode}) => {
   const [singlePlayerButton, setSinglePlayerButton] = useState('contained');
   const [multiPlayerButton, setMultiPlayerButton] = useState('outlined');
+
   // Changes the radio button colours and switches active gamemode
   const handleRadio = () => {
     const temp = singlePlayerButton;
@@ -17,6 +18,7 @@ const ModeToggle = ({setActiveMode, activeMode}) => {
         setActiveMode('singlePlayer') :
         setActiveMode('multiPlayer');
   };
+
   return (
     <div className='radioButtons'>
       <Button

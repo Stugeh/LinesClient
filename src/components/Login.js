@@ -5,6 +5,8 @@ import {makeStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
+const API_URL = '';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     '& > *': {
@@ -13,6 +15,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+
+const createUser = async () => {
+  await axios.post(`${API_URL}/users/`, user);
+};
 
 const Login = () => {
   const {reset: usernameReset, ...username} = useField('text', 'username');
@@ -25,24 +31,33 @@ const Login = () => {
       username: username.value,
       password: password.value,
     };
-    // TODO save url to env variable so this can work.
-    const res = await axios.post('/', user);
-    console.log('res: ', res);
+    if (!await axios.get(`${API_URL}/user/${username.value}`)) {
+      createUser();
+    }
+    const res = await axios.post(`${API_URL}/login/`, user);
     if (res.status===201) {
       // TODO the token probably wont be in res.token
       window.localStorage.setItem('authToken', `bearer ${res.token}`);
+    } else {
+
     }
     usernameReset();
-
     passwordReset();
   };
 
   return (
     <div className='login'>
+      <h1>Login/Create new user</h1>
       <form className={classes.root} onSubmit={handleLogin}>
         <TextField {...username}/><br/>
         <TextField {...password}/><br/>
-        <Button variant='contained' color='primary' type="submit">login</Button>
+        <Button
+          variant='contained'
+          color='primary'
+          type="submit"
+        >
+          submit
+        </Button>
       </form>
     </div>
   );
