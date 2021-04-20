@@ -10,15 +10,15 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 // own component functions in other files.
 //
 
-const MainMenu = ({setGameView, setActiveMode, activeMode}) => {
-  const playButtonStyle = {
-    paddingLeft: '50px',
-    paddingRight: '50px',
-    backgroundColor: 'green',
-    fontSize: '50px',
-    marginTop: '50px',
-  };
+const playButtonStyle = {
+  paddingLeft: '50px',
+  paddingRight: '50px',
+  backgroundColor: 'green',
+  fontSize: '50px',
+  marginTop: '50px',
+};
 
+const MainMenu = ({setGameView}) => {
   return (
     <div className='mainMenu'>
       <Button

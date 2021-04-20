@@ -8,27 +8,17 @@ import GameSetup from './components/GameSetup/GameSetup';
 const App = () => {
   // State variables
   const [gameView, setGameView] = useState('mainMenu');
-  const [activeMode, setActiveMode] = useState('singlePlayer');
 
   // TODO if (!window.localStorage.getItem('authToken')) return <Login />;
 
   return (
     <div>
       {gameView === 'mainMenu' ? (
-            <MainMenu
-              setGameView={setGameView}
-              setActiveMode={setActiveMode}
-              activeMode={activeMode}
-            />
-          ):<></>
-      }
+            <MainMenu setGameView={setGameView}/>
+          ):null}
       {gameView === 'gameSetup' ? (
-            <GameSetup
-              setGameView={setGameView}
-              setActiveMode={setActiveMode}
-              activeMode={activeMode}
-            />
-          ):<></>}
+            <GameSetup setGameView={setGameView}/>
+          ):null}
     </div>
   );
 };
