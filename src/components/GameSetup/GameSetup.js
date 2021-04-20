@@ -9,11 +9,11 @@ const playButtonStyle = {
   paddingLeft: '50px',
   paddingRight: '50px',
   backgroundColor: 'green',
-  fontSize: '40px',
+  fontSize: '30px',
   marginBottom: '30px',
 };
 
-const GameSetup = ({setGameView, setActiveMode, activeMode}) => {
+const GameSetup = ({setGameView}) => {
   return (
     <div className='gameSetup'>
 

@@ -14,21 +14,20 @@ const playButtonStyle = {
   paddingLeft: '50px',
   paddingRight: '50px',
   backgroundColor: 'green',
-  fontSize: '50px',
+  fontSize: '30px',
   marginTop: '50px',
+  color: 'white',
 };
 
 const MainMenu = ({setGameView}) => {
   return (
     <div className='mainMenu'>
       <Button
-        variant='contained'
-        color='primary'
         style={playButtonStyle}
         onClick={() => setGameView('gameSetup')}
       >
         <PlayArrowIcon fontSize='large'/>
-        Play
+        Create game
       </Button>
       <br/>
     </div>
