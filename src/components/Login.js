@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 // const postLogin = async ({user}) => {
 //   const res = await axios.post(`${API_URL}/login/`, user);
 //   if (res.status===201) {
-//     // TODO the token probably wont be in res.token
+// TODO the token probably wont be in res.token
 //     window.localStorage.setItem('authToken', `bearer ${res.token}`);
 //   } else {
 //     setNotification({open: true, message: 'login failed'});

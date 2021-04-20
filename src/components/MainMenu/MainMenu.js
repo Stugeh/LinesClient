@@ -4,9 +4,6 @@ import {Button} from '@material-ui/core';
 // Material UI icons
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 
-import MenuRules from './MenuRules';
-import ModeToggle from '../ModeToggle';
-
 //
 // MainMenu Component.
 // The smaller pieces will eventully be moved to their
@@ -34,11 +31,6 @@ const MainMenu = ({setGameView, setActiveMode, activeMode}) => {
         Play
       </Button>
       <br/>
-      <ModeToggle
-        setActiveMode={setActiveMode}
-        activeMode={activeMode}
-      />
-      <MenuRules activeMode={activeMode} />
     </div>
   );
 };
