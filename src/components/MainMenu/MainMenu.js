@@ -18,7 +18,7 @@ const playButtonStyle = {
 // The smaller pieces will eventully be moved to their
 // own component functions in other files.
 const MainMenu = ({setGameView}) => {
-  const [gameListToggle, setGameListToggle] = useState(false);
+  const [isHidden, setIsHidden] = useState(true);
 
   return (
     <div className='mainMenu'>
@@ -30,11 +30,11 @@ const MainMenu = ({setGameView}) => {
       </Button><br/>
       <Button
         style={{...playButtonStyle, backgroundColor: 'orange'}}
-        onClick={() => setGameListToggle(!gameListToggle)}
+        onClick={() => setIsHidden(!isHidden)}
       >
         Join game
       </Button>
-      <GameList isHidden={gameListToggle}/>
+      {!isHidden ? <GameList /> : null}
     </div>
   );
 };
