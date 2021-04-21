@@ -1,17 +1,22 @@
 import React, {useState} from 'react';
 import {Button} from '@material-ui/core';
 const testBoard = [
-  [' ', 'O', ' '],
-  ['X', 'X', ' '],
-  ['O', 'O', ' '],
+  [' ', ' ', ' '],
+  [' ', ' ', ' '],
+  [' ', ' ', ' '],
 ];
 
 const GameView = () => {
   const [gameBoard, setGameBoard] = useState(testBoard);
+  const playerChar='X';
 
   const handleButton = (event) => {
     console.log('event :>> ', event);
-    setGameBoard(testBoard);
+    if (gameBoard[event.y][event.x]===' ') {
+      const newBoard=[...gameBoard];
+      newBoard[event.y][event.x]=playerChar;
+      setGameBoard(newBoard);
+    }
   };
 
   return (
