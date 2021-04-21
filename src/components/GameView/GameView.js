@@ -27,7 +27,6 @@ const GameView = () => {
 };
 
 const renderRow = (row, rowIndex, handleButton) => {
-  console.log('row :>> ', row, rowIndex);
   return (
     <div className='boardRow'>
       {row.map((cell, cellIndex) => (
@@ -38,11 +37,13 @@ const renderRow = (row, rowIndex, handleButton) => {
 
 const renderButton = (cellIndex, rowIndex, cell, handleButton) => {
   const coordinates = {x: cellIndex, y: rowIndex};
+  const buttonStyle = {height: '40px'};
   return (
     <Button
       key={`${coordinates.x},${coordinates.y}`}
       variant='contained'
       onClick={(e) => handleButton(coordinates, e)}
+      style={buttonStyle}
     >
       {cell}
     </Button>
