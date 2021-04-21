@@ -10,7 +10,7 @@ const App = () => {
   // State variables
   const [gameView, setGameView] = useState('game');
 
-  // TODO if (!window.localStorage.getItem('authToken')) return <Login />;
+  // if (!window.localStorage.getItem('authToken')) return <Login />;
 
   return (
     <div>
@@ -18,11 +18,11 @@ const App = () => {
         <GameView/>
       ):null}
       {gameView === 'mainMenu' ? (
-            <MainMenu setGameView={setGameView}/>
-          ):null}
+        <MainMenu setGameView={setGameView}/>
+      ):null}
       {gameView === 'gameSetup' ? (
-            <GameSetup setGameView={setGameView}/>
-          ):null}
+        <GameSetup setGameView={setGameView}/>
+      ):null}
     </div>
   );
 };

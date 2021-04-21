@@ -19,6 +19,9 @@ const GameView = () => {
     }
   };
 
+  // TODO add polling for turn and retrieving board from API
+  // user shouldn't be able to make a move if it isn't their turn
+
   return (
     <div className='board'>
       {gameBoard.map((row, rowIndex) => (
@@ -42,17 +45,18 @@ const renderRow = (row, rowIndex, handleButton) => {
 
 const renderButton = (cellIndex, rowIndex, cell, handleButton) => {
   const coordinates = {x: cellIndex, y: rowIndex};
-  const buttonStyle = {height: '40px'};
   return (
     <Button
       key={`${coordinates.x},${coordinates.y}`}
       variant='contained'
-      onClick={(e) => handleButton(coordinates, e)}
       style={buttonStyle}
+      onClick={(e) => handleButton(coordinates, e)}
     >
       {cell}
     </Button>
   );
 };
+
+const buttonStyle = {height: '40px'};
 
 export default GameView;
