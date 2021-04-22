@@ -18,17 +18,19 @@ const GameList = () => {
     }];
   // eslint-disable-next-line no-unused-vars
   const {reset: searchReset, ...search} = useField('text', 'search');
+  // eslint-disable-next-line no-unused-vars
   const [games, setGames] = useState(tempGames);
+
   useEffect(async () => {
     // TODO fix links
     // const res = await axios.get(`${API_URL}/games/`);
     // setGames(res.data.items);
   }, []);
 
-  if (search.value) {
-    setGames(filterByHost(games, search));
-  }
+  const filteredGames = filterByHost(games, search.value);
 
+
+  console.log('search.value :>> ', search.value);
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
@@ -41,7 +43,7 @@ const GameList = () => {
         </TableHead>
 
         <TableBody>
-          {games.map((game) => (
+          {filteredGames.map((game) => (
             <TableRow key={`${game.player1},${game.player2}`}>
               <TableCell>{game.player1}</TableCell>
               <TableCell>
@@ -57,9 +59,10 @@ const GameList = () => {
 };
 
 const filterByHost = (games, search) => {
-  return games.filter((game) =>
-    game.player1.toLowerCase().includes(search.value.toLowerCase()),
-  );
+  const filtered = search === '' ? games :
+  games.filter((game) =>
+    game.player1.toLowerCase().includes(search.toLowerCase()));
+  return filtered;
 };
 
 export default GameList;
