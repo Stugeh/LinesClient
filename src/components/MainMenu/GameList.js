@@ -5,7 +5,7 @@ import {TextField, Table, TableContainer, TableHead,
 
 import {useField} from '../../hooks/formHook';
 
-const GameList = () => {
+const GameList = ({setGame, setGameView}) => {
   const tempGames = [
     {
       player1: 'esa',
@@ -54,6 +54,10 @@ const GameList = () => {
                   variant='contained'
                   color='primary'
                   style={{marginRight: '5px'}}
+                  onClick={() => {
+                    setGame(game);
+                    setGameView('game');
+                  }}
                 >
                   join
                 </Button>

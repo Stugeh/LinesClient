@@ -17,7 +17,7 @@ const playButtonStyle = {
 // MainMenu Component.
 // The smaller pieces will eventully be moved to their
 // own component functions in other files.
-const MainMenu = ({setGameView}) => {
+const MainMenu = ({setGameView, setGame}) => {
   const [isHidden, setIsHidden] = useState(true);
 
   return (
@@ -34,7 +34,11 @@ const MainMenu = ({setGameView}) => {
       >
         Join game
       </Button>
-      {!isHidden ? <GameList /> : null}
+      {!isHidden ?
+      <GameList
+        setGameView={setGameView}
+        setGame={setGame}
+      /> : null}
     </div>
   );
 };

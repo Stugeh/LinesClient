@@ -9,16 +9,16 @@ import GameView from './components/GameView/GameView';
 const App = () => {
   // State variables
   const [gameView, setGameView] = useState('mainMenu');
-
+  const [game, setGame] = useState({});
   // if (!window.localStorage.getItem('authToken')) return <Login />;
 
   return (
     <div>
       {gameView === 'game' ? (
-        <GameView/>
+        <GameView setGame={game}/>
       ):null}
       {gameView === 'mainMenu' ? (
-        <MainMenu setGameView={setGameView}/>
+        <MainMenu setGameView={setGameView} setGame={setGame}/>
       ):null}
       {gameView === 'gameSetup' ? (
         <GameSetup setGameView={setGameView}/>
