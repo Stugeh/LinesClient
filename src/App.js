@@ -8,7 +8,7 @@ import GameView from './components/GameView/GameView';
 
 const App = () => {
   // State variables
-  const [gameView, setGameView] = useState('game');
+  const [gameView, setGameView] = useState('mainMenu');
 
   // if (!window.localStorage.getItem('authToken')) return <Login />;
 
