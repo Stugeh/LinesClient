@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-// import axios from 'axios';
+
 import {makeStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -19,14 +19,16 @@ const Login = () => {
     open: false,
     message: '',
   });
+  const [requests, setRequests] = useState({
+    login: {},
+    createUser: {},
+  });
 
   useEffect(async () => {
-    const apiRes = await axios.request({
-      method: 'GET',
-      url: API_URL,
-      crossDomain: true,
-    });
-    console.log('apiRes :>> ', apiRes);
+    const apiRes = await getAvailableRequests();
+    const loginReq = apiRes.data['@controls']['auth-token'];
+    const createUserReq = apiRes.data['@controls']['create-user'];
+    setRequests({login: loginReq, createUser: createUserReq});
   }, []);
 
   const handleLogin = async (event) => {
@@ -35,11 +37,12 @@ const Login = () => {
       username: username.value,
       password: password.value,
     };
-    const res = await axios.get(`${API_URL}/user/${username.value}`);
-    if (res.status !== 200) {
-      createUser();
-    }
-    postLogin(user);
+
+    // if (!userExists(username)) {
+    //   createUser(user, requests.createUser);
+    // }
+
+    postLogin(user, requests.login, setNotification);
     usernameReset();
     passwordReset();
   };
@@ -66,19 +69,61 @@ const Login = () => {
   );
 };
 
-// TODO
-const createUser = async () => {
-  await axios.post(`${API_URL}/users/`, user);
-};
 
-const postLogin = async ({user}) => {
-  const res = await axios.post(`${API_URL}/login/`, user);
-  if (res.status===201) {
-    window.localStorage.setItem('authToken', `bearer ${res.token}`);
+// const createUser = async (user, req) => {
+//   if (!req.method) {
+//     return null;
+//   }
+//   const request = {
+//     method: req.method,
+//     url: req.href,
+//     crossDomain: true,
+//     data: user,
+//   };
+//   console.log(`request`, request);
+//   const res = await axios.request(request);
+
+//   return res;
+// };
+
+const postLogin = async (user, req, setNotification) => {
+  if (!req.method) {
+    return null;
+  }
+  const res = await axios.request({
+    method: req.method,
+    url: req.href,
+    crossDomain: true,
+    data: user,
+  });
+  console.log('res :>> ', res);
+  if (res.status===200) {
+    window.localStorage.setItem('authToken', `bearer ${res.data.token}`);
   } else {
     setNotification({open: true, message: 'login failed'});
   }
 };
+
+const getAvailableRequests = async () => {
+  const apiRes = await axios.request({
+    method: 'GET',
+    url: API_URL,
+    crossDomain: true,
+  });
+  return apiRes;
+};
+
+// const userExists = async (username) => {
+//   const res = await axios.request({
+//     method: 'GET',
+//     url: `${API_URL}/user/${username.value}`,
+//     crossDomain: true,
+//   });
+//   if (res.status === 200) {
+//     return true;
+//   }
+//   return false;
+// };
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -88,3 +133,4 @@ const useStyles = makeStyles((theme) => ({
     }}}));
 
 export default Login;
+

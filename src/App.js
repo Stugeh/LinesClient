@@ -11,8 +11,9 @@ const App = () => {
   const [gameView, setGameView] = useState('mainMenu');
   const [game, setGame] = useState({});
 
-  if (!window.localStorage.getItem('authToken')) return <Login />;
-
+  if (!window.localStorage.getItem('authToken')) {
+    return <Login />;
+  }
   return (
     <div>
       {gameView === 'game' ? (
