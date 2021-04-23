@@ -21,7 +21,7 @@ const App = () => {
   return (
     <div>
       {view === 'login' ? (
-        <Login setView={setView} />
+        <Login setView={setView}/>
       ):null}
       {view === 'game' ? (
         <GameView setGame={game}/>

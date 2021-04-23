@@ -37,11 +37,9 @@ const Login = ({setView}) => {
       username: username.value,
       password: password.value,
     };
-
     // if (!userExists(username)) {
     //   createUser(user, requests.createUser);
     // }
-
     postLogin(user, requests.login, setNotification, setView);
     usernameReset();
     passwordReset();
