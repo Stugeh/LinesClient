@@ -15,7 +15,7 @@ const playButtonStyle = {
 
 //
 // MainMenu Component.
-// The smaller pieces will eventully be moved to their
+// The smaller pieces will eventually be moved to their
 // own component functions in other files.
 const MainMenu = ({setGameView, setGame}) => {
   const [isHidden, setIsHidden] = useState(true);

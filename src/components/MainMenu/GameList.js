@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react';
-// import axios from 'axios';
-import {TextField, Table, TableContainer, TableHead,
-  TableBody, TableRow, TableCell, Paper, Button} from '@material-ui/core';
+import axios from 'axios';
+import {
+  TextField, Table, TableContainer, TableHead,
+  TableBody, TableRow, TableCell, Paper, Button,
+} from '@material-ui/core';
 
 import {useField} from '../../hooks/formHook';
 
@@ -23,14 +25,19 @@ const GameList = ({setGame, setGameView}) => {
 
   useEffect(async () => {
     // TODO fix links
-    // const res = await axios.get(`${API_URL}/games/`);
+    console.log('process.env :>> ', process.env.REACT_APP_API_URL);
+    const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/`);
+    console.log('res :>> ', res);
     // setGames(res.data.items);
   }, []);
 
   const filteredGames = filterByHost(games, search.value);
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer
+      style={{width: '40%', marginLeft: '30%'}}
+      component={Paper}
+    >
       <Table aria-label="simple table">
 
         <TableHead>

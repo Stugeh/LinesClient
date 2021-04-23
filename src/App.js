@@ -3,14 +3,15 @@ import './App.css';
 
 import MainMenu from './components/MainMenu/MainMenu';
 import GameSetup from './components/GameSetup/GameSetup';
-// import Login from './components/Login';
+import Login from './components/Login';
 import GameView from './components/GameView/GameView';
 
 const App = () => {
   // State variables
   const [gameView, setGameView] = useState('mainMenu');
   const [game, setGame] = useState({});
-  // if (!window.localStorage.getItem('authToken')) return <Login />;
+
+  if (!window.localStorage.getItem('authToken')) return <Login />;
 
   return (
     <div>
