@@ -8,22 +8,23 @@ import GameView from './components/GameView/GameView';
 
 const App = () => {
   // State variables
-  const [gameView, setGameView] = useState('mainMenu');
+  const [view, setView] = useState('mainMenu');
   const [game, setGame] = useState({});
 
   if (!window.localStorage.getItem('authToken')) {
-    return <Login />;
+    setView('login');
+    return <Login setView={setView}/>;
   }
   return (
     <div>
-      {gameView === 'game' ? (
+      {view === 'game' ? (
         <GameView setGame={game}/>
       ):null}
-      {gameView === 'mainMenu' ? (
-        <MainMenu setGameView={setGameView} setGame={setGame}/>
+      {view === 'mainMenu' ? (
+        <MainMenu setGameView={setView} setGame={setGame}/>
       ):null}
-      {gameView === 'gameSetup' ? (
-        <GameSetup setGameView={setGameView}/>
+      {view === 'gameSetup' ? (
+        <GameSetup setGameView={setView}/>
       ):null}
     </div>
   );

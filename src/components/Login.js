@@ -11,7 +11,7 @@ import axios from 'axios';
 const API_URL = process.env.REACT_APP_API_URL;
 
 
-const Login = () => {
+const Login = ({setView}) => {
   const {reset: usernameReset, ...username} = useField('text', 'username');
   const {reset: passwordReset, ...password} = useField('text', 'password');
   const classes = useStyles();
@@ -42,7 +42,7 @@ const Login = () => {
     //   createUser(user, requests.createUser);
     // }
 
-    postLogin(user, requests.login, setNotification);
+    postLogin(user, requests.login, setNotification, setView);
     usernameReset();
     passwordReset();
   };
@@ -86,7 +86,7 @@ const Login = () => {
 //   return res;
 // };
 
-const postLogin = async (user, req, setNotification) => {
+const postLogin = async (user, req, setNotification, setView) => {
   if (!req.method) {
     return null;
   }
@@ -99,6 +99,7 @@ const postLogin = async (user, req, setNotification) => {
   console.log('res :>> ', res);
   if (res.status===200) {
     window.localStorage.setItem('authToken', `bearer ${res.data.token}`);
+    setView('mainMenu');
   } else {
     setNotification({open: true, message: 'login failed'});
   }
