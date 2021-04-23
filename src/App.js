@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 
 import MainMenu from './components/MainMenu/MainMenu';
@@ -11,12 +11,18 @@ const App = () => {
   const [view, setView] = useState('mainMenu');
   const [game, setGame] = useState({});
 
-  if (!window.localStorage.getItem('authToken')) {
-    setView('login');
-    return <Login setView={setView}/>;
-  }
+  useEffect(() => {
+    if (!window.localStorage.getItem('authToken')) {
+      setView('login');
+    }
+  }, []);
+
+
   return (
     <div>
+      {view === 'login' ? (
+        <Login setView={setView} />
+      ):null}
       {view === 'game' ? (
         <GameView setGame={game}/>
       ):null}
