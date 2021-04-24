@@ -2,9 +2,10 @@ import React, {useState, useEffect} from 'react';
 import './App.css';
 
 import MainMenu from './components/MainMenu/MainMenu';
-import GameSetup from './components/GameSetup/CreateRule';
+import CreateRule from './components/GameSetup/CreateRule';
 import Login from './components/Login';
 import GameView from './components/GameView/GameView';
+import CreateGame from './components/CreateGame';
 
 const App = () => {
   // State variables
@@ -27,10 +28,13 @@ const App = () => {
         <GameView setGame={game}/>
       ):null}
       {view === 'mainMenu' ? (
-        <MainMenu setGameView={setView} setGame={setGame}/>
+        <MainMenu setView={setView} setGame={setGame}/>
       ):null}
       {view === 'createRule' ? (
-        <GameSetup setGameView={setView}/>
+        <CreateRule setView={setView}/>
+      ):null}
+      {view === 'createGame' ? (
+        <CreateGame setView={setView}/>
       ):null}
     </div>
   );

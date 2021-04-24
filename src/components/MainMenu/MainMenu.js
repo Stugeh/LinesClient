@@ -9,27 +9,31 @@ import GameList from './GameList';
 // MainMenu Component.
 // The smaller pieces will eventually be moved to their
 // own component functions in other files.
-const MainMenu = ({setGameView, setGame}) => {
+const MainMenu = ({setView, setGame}) => {
   const [isHidden, setIsHidden] = useState(true);
 
   return (
     <div className='mainMenu'>
       <Button
+        style={{...playButtonStyle, backgroundColor: 'green'}}
+        variant='contained'
+        onClick={() => setView('createGame')}>
+        Create game
+      </Button><br/>
+      <Button
         style={playButtonStyle}
         variant='contained'
-        onClick={() => setGameView('createRule')}
-      >
+        onClick={() => setView('createRule')}>
         Create new rules
       </Button><br/>
       <Button
         style={{...playButtonStyle, backgroundColor: 'orange'}}
-        onClick={() => setIsHidden(!isHidden)}
-      >
+        onClick={() => setIsHidden(!isHidden)}>
         Join game
       </Button>
       {!isHidden ?
       <GameList
-        setGameView={setGameView}
+        setView={setView}
         setGame={setGame}
       /> : null}
     </div>

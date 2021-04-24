@@ -12,7 +12,7 @@ const HEADERS = {
   },
 };
 
-const GameSetup = ({setGameView}) => {
+const GameSetup = ({setView}) => {
   const classes = useStyles();
   const {reset: rowsReset, ...rows} = useField('number', 'rows');
   const {reset: columnsReset, ...columns} = useField('number', 'columns');
@@ -58,7 +58,7 @@ const GameSetup = ({setGameView}) => {
         variant='contained'
         color='secondary'
         onClick={() => {
-          setGameView('mainMenu');
+          setView('mainMenu');
         }}>
          Back
       </Button>

@@ -9,7 +9,8 @@ import {useField} from '../../hooks/formHook';
 
 const API_URL = process.env.REACT_APP_API_URL;
 const AUTH_TOKEN = window.localStorage.getItem('authToken');
-const GameList = ({setGame, setGameView}) => {
+
+const GameList = ({setGame, setView}) => {
   // eslint-disable-next-line no-unused-vars
   const {reset: searchReset, ...search} = useField('text', 'search');
   // eslint-disable-next-line no-unused-vars
@@ -67,7 +68,7 @@ const GameList = ({setGame, setGameView}) => {
                   style={{marginRight: '5px'}}
                   onClick={() => {
                     setGame(game);
-                    setGameView('game');
+                    setView('game');
                   }}
                 >
                   join
