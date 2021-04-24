@@ -96,7 +96,7 @@ const postLogin = async (user, req, setNotification, setView) => {
   });
   console.log('res :>> ', res);
   if (res.status===200) {
-    window.localStorage.setItem('authToken', `bearer ${res.data.token}`);
+    window.localStorage.setItem('authToken', `Token ${res.data.token}`);
     setView('mainMenu');
   } else {
     setNotification({open: true, message: 'login failed'});

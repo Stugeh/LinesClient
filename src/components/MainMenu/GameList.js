@@ -8,7 +8,7 @@ import {
 import {useField} from '../../hooks/formHook';
 
 const API_URL = process.env.REACT_APP_API_URL;
-
+const AUTH_TOKEN = window.localStorage.getItem('authToken');
 const GameList = ({setGame, setGameView}) => {
   const tempGames = [
     {
@@ -30,6 +30,9 @@ const GameList = ({setGame, setGameView}) => {
       method: 'GET',
       url: `${API_URL}games`,
       crossDomain: true,
+      headers: {
+        Authorization: AUTH_TOKEN,
+      },
     });
     setGames(res.data.items);
   }, []);
@@ -38,7 +41,12 @@ const GameList = ({setGame, setGameView}) => {
 
   return (
     <TableContainer
-      style={{width: '40%', marginLeft: '30%'}}
+      style={{
+        width: '40%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        minWidth: '300px',
+      }}
       component={Paper}
     >
       <Table aria-label="simple table">
@@ -48,6 +56,9 @@ const GameList = ({setGame, setGameView}) => {
             <TableCell>
               <TextField {...search} />
               <h2 style={{marginBottom: '0px'}}>Player1</h2>
+            </TableCell>
+            <TableCell>
+              <h2 style={{marginBottom: '-30px'}}>Player2</h2>
             </TableCell>
             <TableCell>
               <h2 style={{marginBottom: '-30px'}}>rules</h2>
@@ -74,7 +85,9 @@ const GameList = ({setGame, setGameView}) => {
 
                 {game.player1}
               </TableCell>
-
+              <TableCell>
+                {game.player2}
+              </TableCell>
               <TableCell>
                 {`${game.rules.columns}x${game.rules.rows}`}
               </TableCell>
