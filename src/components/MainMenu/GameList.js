@@ -7,6 +7,8 @@ import {
 
 import {useField} from '../../hooks/formHook';
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const GameList = ({setGame, setGameView}) => {
   const tempGames = [
     {
@@ -24,11 +26,12 @@ const GameList = ({setGame, setGameView}) => {
   const [games, setGames] = useState(tempGames);
 
   useEffect(async () => {
-    // TODO fix links
-    console.log('process.env :>> ', process.env.REACT_APP_API_URL);
-    const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/`);
-    console.log('res :>> ', res);
-    // setGames(res.data.items);
+    const res = await axios.request({
+      method: 'GET',
+      url: `${API_URL}games`,
+      crossDomain: true,
+    });
+    setGames(res.data.items);
   }, []);
 
   const filteredGames = filterByHost(games, search.value);

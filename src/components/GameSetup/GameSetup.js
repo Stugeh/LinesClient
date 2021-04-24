@@ -13,11 +13,11 @@ const GameSetup = ({setGameView}) => {
 
   const handleCreate = (event) => {
     event.preventDefault();
-    const rules = {
-      rows: rows.value,
-      columns: rows.value,
-      ticks: rows.value,
-    };
+    // const rules = {
+    //   rows: rows.value,
+    //   columns: rows.value,
+    //   winning_tick_count: rows.value,
+    // };
     rowsReset();
     columnsReset();
     ticksReset();
