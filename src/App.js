@@ -2,15 +2,19 @@ import React, {useState, useEffect} from 'react';
 import './App.css';
 
 import MainMenu from './components/MainMenu/MainMenu';
-import CreateRule from './components/GameSetup/CreateRule';
+import CreateGame from './components/GameSetup/CreateGame';
 import Login from './components/Login';
 import GameView from './components/GameView/GameView';
-import CreateGame from './components/CreateGame';
-
+import Notification from './components/Notification';
 const App = () => {
   // State variables
   const [view, setView] = useState('mainMenu');
-  const [game, setGame] = useState({});
+  const [gameUri, setGameUri] = useState('');
+
+  const [notification, setNotification] = useState({
+    open: false,
+    message: '',
+  });
 
   useEffect(() => {
     if (!window.localStorage.getItem('authToken')) {
@@ -21,20 +25,24 @@ const App = () => {
 
   return (
     <div>
+      <Notification
+        notification={notification}
+        setNotification={setNotification}
+      />
       {view === 'login' ? (
         <Login setView={setView}/>
       ):null}
       {view === 'game' ? (
-        <GameView setGame={game}/>
+        <GameView setGame={game} gameUri={gameUri}/>
       ):null}
       {view === 'mainMenu' ? (
-        <MainMenu setView={setView} setGame={setGame}/>
-      ):null}
-      {view === 'createRule' ? (
-        <CreateRule setView={setView}/>
+        <MainMenu setView={setView} setGameUri={setGameUri}/>
       ):null}
       {view === 'createGame' ? (
-        <CreateGame setView={setView}/>
+        <CreateGame
+          setView={setView}
+          setNotification={setNotification}
+          setGameUri={setGameUri}/>
       ):null}
     </div>
   );

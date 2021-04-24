@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import axios from 'axios';
 import {Button, TextField} from '@material-ui/core';
@@ -12,14 +13,14 @@ const HEADERS = {
   },
 };
 
-const GameSetup = ({setView}) => {
+const CreateGame = ({setView, setNotification, setGameUri}) => {
   const classes = useStyles();
   const {reset: rowsReset, ...rows} = useField('number', 'rows');
   const {reset: columnsReset, ...columns} = useField('number', 'columns');
   const {reset: ticksReset, ...ticks} = useField('number', 'ticks to win');
   const {reset: nameReset, ...name} = useField('text', 'rule set name');
 
-  const handleCreate = (event) => {
+  const handleCreate = async (event) => {
     event.preventDefault();
     const rules = {
       rows: rows.value,
@@ -27,8 +28,16 @@ const GameSetup = ({setView}) => {
       winning_tick_count: ticks.value,
       name: name.value,
     };
-    axios.post(`${API_URL}rules/`, rules, HEADERS);
-    rowsReset(); columnsReset(); ticksReset(); nameReset();
+    const ruleRes = await axios.post(`${API_URL}rules/`, rules, HEADERS);
+    if (ruleRes.status===201) {
+      setNotification({open: true, message: 'Ruleset created!'});
+      const gameRes = await axios.post(
+          `${API_URL}games/`,
+          {rule: name.value},
+          HEADERS,
+      );
+      console.log(`gameRes`, gameRes);
+    }
   };
   return (
     <div className='gameSetup'>
@@ -83,4 +92,4 @@ const useStyles = makeStyles((theme) => ({
       width: '25ch',
     }}}));
 
-export default GameSetup;
+export default CreateGame;

@@ -4,21 +4,15 @@ import {makeStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {useField} from '../hooks/formHook';
-
-import Notification from './Notification';
 import axios from 'axios';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 
-const Login = ({setView}) => {
+const Login = ({setView, setNotification}) => {
   const {reset: usernameReset, ...username} = useField('text', 'username');
   const {reset: passwordReset, ...password} = useField('password', 'password');
   const classes = useStyles();
-  const [notification, setNotification] = useState({
-    open: false,
-    message: '',
-  });
   const [requests, setRequests] = useState({
     login: {},
     createUser: {},
@@ -47,10 +41,6 @@ const Login = ({setView}) => {
 
   return (
     <div className='login'>
-      <Notification
-        notification={notification}
-        setNotification={setNotification}
-      />
       <h1>Login/Create new user</h1>
       <form className={classes.root} onSubmit={handleLogin}>
         <TextField {...username}/><br/>
