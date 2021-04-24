@@ -4,14 +4,6 @@ import {Button} from '@material-ui/core';
 
 import GameList from './GameList';
 
-const playButtonStyle = {
-  paddingLeft: '50px',
-  paddingRight: '50px',
-  backgroundColor: 'green',
-  fontSize: '30px',
-  marginTop: '50px',
-  color: 'white',
-};
 
 //
 // MainMenu Component.
@@ -24,6 +16,7 @@ const MainMenu = ({setGameView, setGame}) => {
     <div className='mainMenu'>
       <Button
         style={playButtonStyle}
+        variant='contained'
         onClick={() => setGameView('createRule')}
       >
         Create new rules
@@ -41,6 +34,13 @@ const MainMenu = ({setGameView, setGame}) => {
       /> : null}
     </div>
   );
+};
+
+const playButtonStyle = {
+  paddingLeft: '50px',
+  paddingRight: '50px',
+  fontSize: '30px',
+  marginTop: '50px',
 };
 
 export default MainMenu;
