@@ -59,8 +59,7 @@ const GameSetup = ({setGameView}) => {
         color='secondary'
         onClick={() => {
           setGameView('mainMenu');
-        }}
-      >
+        }}>
          Back
       </Button>
     </div>

@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import './App.css';
 
 import MainMenu from './components/MainMenu/MainMenu';
-import GameSetup from './components/GameSetup/GameSetup';
+import GameSetup from './components/GameSetup/CreateRule';
 import Login from './components/Login';
 import GameView from './components/GameView/GameView';
 
@@ -29,7 +29,7 @@ const App = () => {
       {view === 'mainMenu' ? (
         <MainMenu setGameView={setView} setGame={setGame}/>
       ):null}
-      {view === 'gameSetup' ? (
+      {view === 'createRule' ? (
         <GameSetup setGameView={setView}/>
       ):null}
     </div>

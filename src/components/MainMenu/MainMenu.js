@@ -24,9 +24,9 @@ const MainMenu = ({setGameView, setGame}) => {
     <div className='mainMenu'>
       <Button
         style={playButtonStyle}
-        onClick={() => setGameView('gameSetup')}
+        onClick={() => setGameView('createRule')}
       >
-        Create game
+        Create new rules
       </Button><br/>
       <Button
         style={{...playButtonStyle, backgroundColor: 'orange'}}

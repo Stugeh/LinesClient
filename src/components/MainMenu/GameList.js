@@ -10,20 +10,10 @@ import {useField} from '../../hooks/formHook';
 const API_URL = process.env.REACT_APP_API_URL;
 const AUTH_TOKEN = window.localStorage.getItem('authToken');
 const GameList = ({setGame, setGameView}) => {
-  const tempGames = [
-    {
-      player1: 'esa',
-      player2: 'matti',
-      rules: {
-        rows: 3,
-        columns: 3,
-        ticksToWin: 3,
-      },
-    }];
   // eslint-disable-next-line no-unused-vars
   const {reset: searchReset, ...search} = useField('text', 'search');
   // eslint-disable-next-line no-unused-vars
-  const [games, setGames] = useState(tempGames);
+  const [games, setGames] = useState([]);
 
   useEffect(async () => {
     const res = await axios.request({
