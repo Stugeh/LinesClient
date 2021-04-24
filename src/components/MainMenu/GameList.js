@@ -29,7 +29,7 @@ const GameList = ({setGame, setView}) => {
   }, []);
 
   const filteredGames = filterByHost(games, search.value);
-
+  console.log('games :>> ', games);
   return (
     <TableContainer
       style={{
@@ -49,9 +49,6 @@ const GameList = ({setGame, setView}) => {
               <h2 style={{marginBottom: '0px'}}>Player1</h2>
             </TableCell>
             <TableCell>
-              <h2 style={{marginBottom: '-30px'}}>Player2</h2>
-            </TableCell>
-            <TableCell>
               <h2 style={{marginBottom: '-30px'}}>rules</h2>
             </TableCell>
           </TableRow>
@@ -59,7 +56,7 @@ const GameList = ({setGame, setView}) => {
 
         <TableBody>
           {filteredGames.map((game) => (
-            <TableRow key={`${game.player1},${game.player2}`}>
+            <TableRow key={`${game.player1},${game.rule}`}>
               <TableCell>
 
                 <Button
@@ -77,10 +74,7 @@ const GameList = ({setGame, setView}) => {
                 {game.player1}
               </TableCell>
               <TableCell>
-                {game.player2}
-              </TableCell>
-              <TableCell>
-                {`${game.rules.columns}x${game.rules.rows}`}
+                {`${game.rule}`}
               </TableCell>
 
             </TableRow>

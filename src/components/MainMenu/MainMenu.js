@@ -21,12 +21,6 @@ const MainMenu = ({setView, setGame}) => {
         Create game
       </Button><br/>
       <Button
-        style={playButtonStyle}
-        variant='contained'
-        onClick={() => setView('createRule')}>
-        Create new rules
-      </Button><br/>
-      <Button
         style={{...playButtonStyle, backgroundColor: 'orange'}}
         onClick={() => setIsHidden(!isHidden)}>
         Join game
