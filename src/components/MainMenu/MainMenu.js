@@ -15,10 +15,16 @@ const MainMenu = ({setView, setGame}) => {
   return (
     <div className='mainMenu'>
       <Button
+        style={{...playButtonStyle}}
+        variant='contained'
+        onClick={() => setView('createRule')}>
+        Create Rule set
+      </Button><br/>
+      <Button
         style={{...playButtonStyle, backgroundColor: 'green'}}
         variant='contained'
         onClick={() => setView('createGame')}>
-        Create game
+        Create Game
       </Button><br/>
       <Button
         style={{...playButtonStyle, backgroundColor: 'orange'}}

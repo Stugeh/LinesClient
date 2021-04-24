@@ -10,7 +10,7 @@ import {useField} from '../../hooks/formHook';
 const API_URL = process.env.REACT_APP_API_URL;
 const AUTH_TOKEN = window.localStorage.getItem('authToken');
 
-const GameList = ({setGame, setView}) => {
+const GameList = ({setGameUri, setView}) => {
   // eslint-disable-next-line no-unused-vars
   const {reset: searchReset, ...search} = useField('text', 'search');
   // eslint-disable-next-line no-unused-vars
@@ -29,7 +29,7 @@ const GameList = ({setGame, setView}) => {
   }, []);
 
   const filteredGames = filterByHost(games, search.value);
-  console.log('games :>> ', games);
+
   return (
     <TableContainer
       style={{
@@ -56,7 +56,7 @@ const GameList = ({setGame, setView}) => {
 
         <TableBody>
           {filteredGames.map((game) => (
-            <TableRow key={`${game.player1},${game.rule}`}>
+            <TableRow key={`${game['@controls'].self.href}`}>
               <TableCell>
 
                 <Button
@@ -64,7 +64,7 @@ const GameList = ({setGame, setView}) => {
                   color='primary'
                   style={{marginRight: '5px'}}
                   onClick={() => {
-                    setGame(game);
+                    setGameUri(game['@controls'].self.href);
                     setView('game');
                   }}
                 >

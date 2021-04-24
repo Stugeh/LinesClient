@@ -8,7 +8,7 @@ const HEADERS = {
   },
 };
 
-const CreateGame = ({setView}) => {
+const CreateRule = ({setView}) => {
   const [ruleList, setRuleList] = useState([]);
 
   useEffect(async ()=>{
@@ -17,7 +17,7 @@ const CreateGame = ({setView}) => {
   }, []);
 
   return (
-    <div className='createGame'>
+    <div className='CreateRule'>
       {ruleList.map((rule) => (
         <div key={rule.name}>{rule.name}</div>
       ))}
@@ -33,4 +33,4 @@ const CreateGame = ({setView}) => {
   );
 };
 
-export default CreateGame;
+export default CreateRule;

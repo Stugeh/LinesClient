@@ -4,7 +4,8 @@ import axios from 'axios';
 import {Button, TextField} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
 
-import {useField} from '../../hooks/formHook';
+import {useField} from '../hooks/formHook';
+import MainMenu from './MainMenu/MainMenu';
 
 const API_URL = process.env.REACT_APP_API_URL;
 const HEADERS = {
@@ -13,7 +14,7 @@ const HEADERS = {
   },
 };
 
-const CreateGame = ({setView, setNotification, setGameUri}) => {
+const CreateRule = ({setView, setNotification}) => {
   const classes = useStyles();
   const {reset: rowsReset, ...rows} = useField('number', 'rows');
   const {reset: columnsReset, ...columns} = useField('number', 'columns');
@@ -31,12 +32,7 @@ const CreateGame = ({setView, setNotification, setGameUri}) => {
     const ruleRes = await axios.post(`${API_URL}rules/`, rules, HEADERS);
     if (ruleRes.status===201) {
       setNotification({open: true, message: 'Ruleset created!'});
-      const gameRes = await axios.post(
-          `${API_URL}games/`,
-          {rule: name.value},
-          HEADERS,
-      );
-      console.log(`gameRes`, gameRes);
+      setView('mainMenu');
     }
   };
   return (
@@ -92,4 +88,4 @@ const useStyles = makeStyles((theme) => ({
       width: '25ch',
     }}}));
 
-export default CreateGame;
+export default CreateRule;
