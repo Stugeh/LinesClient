@@ -6,7 +6,6 @@ import {makeStyles} from '@material-ui/core/styles';
 import {useField} from '../../hooks/formHook';
 
 const API_URL = process.env.REACT_APP_API_URL;
-
 const HEADERS = {
   headers: {
     'Authorization': window.localStorage.getItem('authToken'),
@@ -26,6 +25,7 @@ const GameSetup = ({setGameView}) => {
       rows: rows.value,
       columns: columns.value,
       winning_tick_count: ticks.value,
+      name: name.value,
     };
     axios.post(`${API_URL}rules/`, rules, HEADERS);
     rowsReset(); columnsReset(); ticksReset(); nameReset();
