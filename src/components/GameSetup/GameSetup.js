@@ -50,10 +50,19 @@ const GameSetup = ({setGameView}) => {
             style={playButtonStyle}
             color='primary'
           >
-            Create game
+            Create Rule set
           </Button>
         </div>
       </form>
+      <Button
+        variant='contained'
+        color='secondary'
+        onClick={() => {
+          setGameView('mainMenu');
+        }}
+      >
+         Back
+      </Button>
     </div>
   );
 };
