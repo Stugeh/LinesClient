@@ -13,7 +13,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 const Login = ({setView}) => {
   const {reset: usernameReset, ...username} = useField('text', 'username');
-  const {reset: passwordReset, ...password} = useField('text', 'password');
+  const {reset: passwordReset, ...password} = useField('password', 'password');
   const classes = useStyles();
   const [notification, setNotification] = useState({
     open: false,

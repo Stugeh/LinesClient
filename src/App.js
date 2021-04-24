@@ -8,7 +8,7 @@ import GameView from './components/GameView/GameView';
 
 const App = () => {
   // State variables
-  const [view, setView] = useState('mainMenu');
+  const [view, setView] = useState('gameSetup');
   const [game, setGame] = useState({});
 
   useEffect(() => {
