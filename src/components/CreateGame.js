@@ -1,26 +1,18 @@
-import React, {useEffect, useState} from 'react';
-import axios from 'axios';
+import React from 'react';
+// import axios from 'axios';
 import {Button} from '@material-ui/core';
-const API_URL = process.env.REACT_APP_API_URL;
-const HEADERS = {
-  headers: {
-    'Authorization': window.localStorage.getItem('authToken'),
-  },
-};
+import RuleList from './RuleList';
+// const API_URL = process.env.REACT_APP_API_URL;
+// const HEADERS = {
+//   headers: {
+//     'Authorization': window.localStorage.getItem('authToken'),
+//   },
+// };
 
-const CreateRule = ({setView}) => {
-  const [ruleList, setRuleList] = useState([]);
-
-  useEffect(async ()=>{
-    const rules = await axios.get(`${API_URL}rules`, HEADERS);
-    setRuleList(rules.data.items);
-  }, []);
-
+const CreateGame = ({setView}) => {
   return (
     <div className='CreateRule'>
-      {ruleList.map((rule) => (
-        <div key={rule.name}>{rule.name}</div>
-      ))}
+      <RuleList/>
       <Button
         variant='contained'
         color='secondary'
@@ -33,4 +25,4 @@ const CreateRule = ({setView}) => {
   );
 };
 
-export default CreateRule;
+export default CreateGame;
