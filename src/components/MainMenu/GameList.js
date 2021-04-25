@@ -8,23 +8,22 @@ import {
 import {useField} from '../../hooks/formHook';
 
 const API_URL = process.env.REACT_APP_API_URL;
-const AUTH_TOKEN = window.localStorage.getItem('authToken');
+const HEADERS = {
+  headers: {
+    'Authorization': window.localStorage.getItem('authToken'),
+  },
+};
 
-const GameList = ({setGameUri, setView}) => {
+const USERNAME = window.localStorage.getItem('username');
+
+const GameList = ({setGameUri, setView, gameUri}) => {
   // eslint-disable-next-line no-unused-vars
   const {reset: searchReset, ...search} = useField('text', 'search');
   // eslint-disable-next-line no-unused-vars
   const [games, setGames] = useState([]);
 
   useEffect(async () => {
-    const res = await axios.request({
-      method: 'GET',
-      url: `${API_URL}games`,
-      crossDomain: true,
-      headers: {
-        Authorization: AUTH_TOKEN,
-      },
-    });
+    const res = await axios.get(`${API_URL}games`, HEADERS);
     setGames(res.data.items);
   }, []);
 
@@ -66,6 +65,11 @@ const GameList = ({setGameUri, setView}) => {
                   onClick={() => {
                     setGameUri(game['@controls'].self.href);
                     setView('game');
+                    axios.put(
+                        `${game['@controls'].self.href}join/`,
+                        {user: USERNAME, rule: game.rule},
+                        HEADERS,
+                    );
                   }}
                 >
                   join

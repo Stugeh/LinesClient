@@ -38,7 +38,10 @@ const App = () => {
         <GameView gameUri={gameUri}/>
       ):null}
       {view === 'mainMenu' ? (
-        <MainMenu setView={setView} setGameUri={setGameUri}/>
+        <MainMenu
+          setView={setView}
+          setGameUri={setGameUri}
+          gameUri={gameUri}/>
       ):null}
       {view === 'createRule' ? (
         <CreateRule

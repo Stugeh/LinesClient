@@ -9,7 +9,7 @@ import GameList from './GameList';
 // MainMenu Component.
 // The smaller pieces will eventually be moved to their
 // own component functions in other files.
-const MainMenu = ({setView, setGame}) => {
+const MainMenu = ({setView, setGameUri, gameUri}) => {
   const [isHidden, setIsHidden] = useState(true);
 
   return (
@@ -34,7 +34,8 @@ const MainMenu = ({setView, setGame}) => {
       {!isHidden ?
       <GameList
         setView={setView}
-        setGame={setGame}
+        setGameUri={setGameUri}
+        gameUri={gameUri}
       /> : null}
     </div>
   );

@@ -1,26 +1,62 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
 import {Button} from '@material-ui/core';
-const testBoard = [
-  [' ', ' ', ' '],
-  [' ', ' ', ' '],
-  [' ', ' ', ' '],
-];
+import {useInterval} from '../hooks/poller';
 
-const GameView = () => {
-  const [gameBoard, setGameBoard] = useState(testBoard);
-  const playerChar='X';
+
+const HEADERS = {
+  headers: {
+    'Authorization': window.localStorage.getItem('authToken'),
+  },
+};
+const USERNAME = window.localStorage.getItem('username');
+
+const GameView = ({gameUri}) => {
+  const [gameBoard, setGameBoard] = useState([]);
+  const [winner, setWinner] = useState(0);
+  const [player, setPlayer] = useState(1);
+  const [playerChar, setPlayerChar] = useState('X');
+  const [turn, setTurn] = useState(0);
+
+  useEffect(async () => {
+    const game = await axios.get(gameUri, HEADERS);
+    setGameBoard(game.data.board);
+    if (game.data.player1 !== USERNAME) {
+      setPlayer(2);
+      setPlayerChar('O');
+    }
+  }, []);
 
   const handleButton = (event) => {
-    console.log('event :>> ', event);
-    if (gameBoard[event.y][event.x]===' ') {
+    if (gameBoard[event.y][event.x]===' ' && turn === player) {
       const newBoard=[...gameBoard];
       newBoard[event.y][event.x]=playerChar;
       setGameBoard(newBoard);
+      axios.put(
+          `${gameUri}add-move/`,
+          {row: event.y, column: event.x},
+          HEADERS,
+      );
+      if (turn !==0) {
+        turn === 1 ? setTurn(2) : setTurn(1);
+      }
     }
   };
 
-  // TODO add polling for turn and retrieving board from API
-  // user shouldn't be able to make a move if it isn't their turn
+  useInterval(async () => {
+    const state = await axios.get(gameUri, HEADERS);
+    setTurn(state.data.turn);
+    setGameBoard(state.data.board);
+    setWinner(state.data.winner);
+  }, 1000 * 1);
+
+  if (winner === player) {
+    return (<h1>You won</h1>);
+  }
+  if (winner !== 0) {
+    return (<h1>You lost</h1>);
+  }
+
 
   return (
     <div className='board'>
