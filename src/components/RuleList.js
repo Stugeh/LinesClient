@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import {DataGrid} from '@material-ui/data-grid';
-
+import {TextField} from '@material-ui/core';
 import {useField} from '../hooks/formHook';
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -30,7 +30,9 @@ const RuleList = ({}) => {
   //   };
   return (
     <div style={{height: 400, width: '100%'}}>
+      <TextField {...search}/>
       <DataGrid
+        density='compact'
         rows={parseRows(filteredRules)}
         columns={tableColumns}
         pageSize={5}
