@@ -35,7 +35,7 @@ const App = () => {
         <Login setView={setView}/>
       ):null}
       {view === 'game' ? (
-        <GameView gameUri={gameUri}/>
+        <GameView gameUri={gameUri} setView={setView}/>
       ):null}
       {view === 'mainMenu' ? (
         <MainMenu
