@@ -1,4 +1,4 @@
-# Botched together client for a botched together api. this was made in a week. dont look at it.
+# Botched together client for a tictactoe api. this was made in a week. dont look at it.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
