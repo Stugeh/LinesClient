@@ -45,7 +45,6 @@ const GameView = ({gameUri}) => {
 
   useInterval(async () => {
     const state = await axios.get(gameUri, HEADERS);
-    console.log('state.data :>> ', state.data);
     setTurn(state.data.turn);
     setGameBoard(state.data.board);
     setWinner(state.data.winner);
