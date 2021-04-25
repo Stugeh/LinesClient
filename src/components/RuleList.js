@@ -1,9 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import {
-  Table, TableContainer, TableHead, TableBody, TableRow,
-  TableCell, TextField, Paper,
-} from '@material-ui/core';
+import {DataGrid} from '@material-ui/data-grid';
 
 import {useField} from '../hooks/formHook';
 
@@ -31,68 +28,43 @@ const RuleList = ({}) => {
   //   const handleRadio = (event) => {
   //     setSelectedRule(event.target.value);
   //   };
-
-  console.log(`selectedRule`, ruleList);
   return (
-    <div style={{padding: '20px', margin: '0px'}}>
-      <TextField {...search} />
-      <TableContainer
-        style={{
-          width: '40%',
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          minWidth: '400px',
-        }}
-        component={Paper}
-      >
-        <Table aria-label="simple table">
-
-          <TableHead>
-            <TableRow >
-              <TableCell>
-                <h3>Name</h3>
-              </TableCell>
-              <TableCell>
-                <h3 >Rows</h3>
-              </TableCell>
-              <TableCell>
-                <h3>Columns</h3>
-              </TableCell>
-              <TableCell>
-                <h3>Winning ticks</h3>
-              </TableCell>
-            </TableRow>
-          </TableHead>
-
-          <TableBody>
-            {filteredRules.map(((rule) => (
-              <TableRow hover key={`${rule['@controls'].self.href}`}>
-                <TableCell>
-                  {rule.name}
-                </TableCell>
-                <TableCell>
-                  {`${rule.rows}`}
-                </TableCell>
-                <TableCell>
-                  {`${rule.columns}`}
-                </TableCell>
-                <TableCell>
-                  {`${rule.winning_tick_count}`}
-                </TableCell>
-              </TableRow>
-            )))}
-          </TableBody>
-
-        </Table>
-      </TableContainer>
+    <div style={{height: 400, width: '100%'}}>
+      <DataGrid
+        rows={parseRows(filteredRules)}
+        columns={tableColumns}
+        pageSize={5}
+        checkboxSelection
+      />
     </div>
   );
 };
 
+
+const tableColumns = [
+  {field: 'name', headerName: 'Name', width: 130},
+  {field: 'rows', headerName: 'Rows', width: 200},
+  {field: 'columns', headerName: 'Columns', width: 200},
+  {field: 'ticks', headerName: 'Winning ticks', width: 250},
+];
+
+const parseRows = (rules) => {
+  const data = rules.map((rule) => (
+    {
+      name: rule.name,
+      rows: rule.rows,
+      columns: rule.columns,
+      ticks: rule.winning_tick_count,
+      id: rule['@controls'].self.href,
+    }));
+  return data;
+};
+
+
 const filterByName = (games, search) => {
   const filtered = search === '' ? games :
-    games.filter((rule) =>
-      rule.name.toLowerCase().includes(search.toLowerCase()));
+  games.filter((rule) =>
+    rule.name.toLowerCase().includes(search.toLowerCase()));
   return filtered;
 };
 
