@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import {Button} from '@material-ui/core';
 import RuleList from './RuleList';
+
 const API_URL = process.env.REACT_APP_API_URL;
 const HEADERS = {
   headers: {
@@ -9,7 +10,7 @@ const HEADERS = {
   },
 };
 
-const CreateGame = ({setView}) => {
+const CreateGame = ({setView, setGameUri, setNotification}) => {
   const [selectedRule, setSelectedRule] = useState('');
 
   const makeGame = async () => {
@@ -18,7 +19,11 @@ const CreateGame = ({setView}) => {
         {rule: selectedRule},
         HEADERS,
     );
-    console.log('res :>> ', res);
+    if (res.status===201) {
+      setNotification('Created game');
+      setGameUri(res.headers.location);
+      setView('game');
+    }
   };
 
   return (
