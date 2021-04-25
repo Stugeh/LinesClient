@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 // import axios from 'axios';
 import {Button} from '@material-ui/core';
 import RuleList from './RuleList';
@@ -10,9 +10,12 @@ import RuleList from './RuleList';
 // };
 
 const CreateGame = ({setView}) => {
+  const [selectedRule, setSelectedRule] = useState('');
   return (
     <div className='CreateRule'>
-      <RuleList/>
+      <h2>Select a rule set</h2>
+      <RuleList setSelectedRule={setSelectedRule}/>
+      <h2>{selectedRule} selected</h2>
       <Button
         variant='contained'
         color='secondary'
