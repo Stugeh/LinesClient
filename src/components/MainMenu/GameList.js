@@ -93,7 +93,9 @@ const GameList = ({setGameUri, setView, gameUri}) => {
 const filterByHost = (games, search) => {
   const filtered = search === '' ? games :
   games.filter((game) =>
-    game.player1.toLowerCase().includes(search.toLowerCase()));
+    game.player1.toLowerCase().includes(search.toLowerCase()) ||
+    game.player2.toLowerCase().includes(search.toLowerCase()),
+  );
   return filtered;
 };
 
