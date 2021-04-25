@@ -57,7 +57,6 @@ const GameList = ({setGameUri, setView, gameUri}) => {
           {filteredGames.map((game) => (
             <TableRow key={`${game['@controls'].self.href}`}>
               <TableCell>
-
                 <Button
                   variant='contained'
                   color='primary'
@@ -74,17 +73,14 @@ const GameList = ({setGameUri, setView, gameUri}) => {
                 >
                   join
                 </Button>
-
                 {game.player1}
               </TableCell>
               <TableCell>
                 {`${game.rule}`}
               </TableCell>
-
             </TableRow>
           ))}
         </TableBody>
-
       </Table>
     </TableContainer>
   );

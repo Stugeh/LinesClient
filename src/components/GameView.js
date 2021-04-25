@@ -3,7 +3,6 @@ import axios from 'axios';
 import {Button} from '@material-ui/core';
 import {useInterval} from '../hooks/poller';
 
-
 const HEADERS = {
   headers: {
     'Authorization': window.localStorage.getItem('authToken'),
@@ -11,7 +10,7 @@ const HEADERS = {
 };
 const USERNAME = window.localStorage.getItem('username');
 
-const GameView = ({gameUri}) => {
+const GameView = ({gameUri, setView}) => {
   const [gameBoard, setGameBoard] = useState([]);
   const [winner, setWinner] = useState(0);
   const [player, setPlayer] = useState(1);
@@ -37,7 +36,7 @@ const GameView = ({gameUri}) => {
           {row: event.y, column: event.x},
           HEADERS,
       );
-      if (turn !==0) {
+      if (turn !== 0) {
         turn === 1 ? setTurn(2) : setTurn(1);
       }
     }
@@ -50,11 +49,17 @@ const GameView = ({gameUri}) => {
     setWinner(state.data.winner);
   }, 1000 * 1);
 
-  if (winner === player) {
-    return (<h1>You won</h1>);
-  }
-  if (winner !== 0) {
-    return (<h1>You lost</h1>);
+  if (winner === 0) {
+    return (
+      <div>
+        {winner === player ? <h1>You won</h1> : <h1>You lost</h1>}
+        <Button
+          variant='contained'
+          color='primary'
+          onClick={()=>setView('mainMenu')}
+        >Leave</Button>
+      </div>
+    );
   }
 
 
