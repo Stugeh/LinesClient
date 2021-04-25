@@ -12,11 +12,11 @@ const HEADERS = {
 };
 
 
-const RuleList = ({}) => {
+const RuleList = ({setSelectedRule}) => {
   // eslint-disable-next-line no-unused-vars
   const {reset: searchReset, ...search} = useField('text', 'search');
   const [ruleList, setRuleList] = useState([]);
-  // const [selectedRule, setSelectedRule] =useState('');
+  // const [select, setSelect] =useState('');
 
   useEffect(async ()=>{
     const rules = await axios.get(`${API_URL}rules/`, HEADERS);
@@ -25,18 +25,21 @@ const RuleList = ({}) => {
 
   const filteredRules = filterByName(ruleList, search.value);
 
-  //   const handleRadio = (event) => {
-  //     setSelectedRule(event.target.value);
-  //   };
+  const selectionChange = (selection) => {
+    setSelectedRule(selection.data.name);
+  };
+
   return (
-    <div style={{height: 400, width: '100%'}}>
+    <div style={{height: 500, width: '80%', paddingBottom: '10px'}}>
       <TextField {...search}/>
       <DataGrid
         density='compact'
         rows={parseRows(filteredRules)}
         columns={tableColumns}
-        pageSize={5}
-        checkboxSelection
+        pageSize={100}
+        hideFooterPagination
+        hideFooterSelectedRowCount
+        onRowSelected={selectionChange}
       />
     </div>
   );
