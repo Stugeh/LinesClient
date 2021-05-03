@@ -17,6 +17,7 @@ const GameView = ({gameUri, setView}) => {
   const [playerChar, setPlayerChar] = useState('X');
   const [turn, setTurn] = useState(0);
 
+  // set up the local game state when mounting this component
   useEffect(async () => {
     const game = await axios.get(gameUri, HEADERS);
     setGameBoard(game.data.board);
@@ -26,6 +27,7 @@ const GameView = ({gameUri, setView}) => {
     }
   }, []);
 
+  // handle interaction with the gam buttons
   const handleButton = (event) => {
     if (gameBoard[event.y][event.x]===' ' && turn === player) {
       const newBoard=[...gameBoard];
@@ -42,6 +44,7 @@ const GameView = ({gameUri, setView}) => {
     }
   };
 
+  // poll the server to get updates in game state
   useInterval(async () => {
     const state = await axios.get(gameUri, HEADERS);
     setTurn(state.data.turn);
@@ -49,32 +52,32 @@ const GameView = ({gameUri, setView}) => {
     setWinner(state.data.winner);
   }, 1000 * 1);
 
-  if (winner === 0) {
-    return (
-      <div>
-        {winner === player ? <h1>You won</h1> : <h1>You lost</h1>}
-        <Button
-          variant='contained'
-          color='primary'
-          onClick={()=>setView('mainMenu')}
-        >Leave</Button>
-      </div>
-    );
-  }
+  // when someone wins display the appropriate message
+  if (winner !== 0) {
+    return <GameOver
+      winner={winner} player={player} setView={setView}
+    />;
+  };
 
-
+  // Game board
   return (
     <div className='board'>
+      {turn === 0 ?
+      <h1>Waiting for other player</h1> :
+      <h1>Player {turn}s turn</h1>
+      }
       {gameBoard.map((row, rowIndex) => (
         <div key={rowIndex}>
           {renderRow(row, rowIndex, handleButton)}
         </div>
       ))}
     </div>
-
   );
 };
 
+// ** HELPER FUNCTIONS AND SUB-COMPONENTS **//
+
+// renders a row in the gameboard
 const renderRow = (row, rowIndex, handleButton) => {
   return (
     <div className='boardRow'>
@@ -84,6 +87,7 @@ const renderRow = (row, rowIndex, handleButton) => {
     </div>);
 };
 
+// renders an individual button and sets up event handlers for them
 const renderButton = (cellIndex, rowIndex, cell, handleButton) => {
   const coordinates = {x: cellIndex, y: rowIndex};
   return (
@@ -97,6 +101,18 @@ const renderButton = (cellIndex, rowIndex, cell, handleButton) => {
     </Button>
   );
 };
+
+// Screen thats displayed when game ends
+const GameOver = ({winner, player, setView}) => (
+  <div>
+    {winner === player ? <h1>You won</h1> : <h1>You lost</h1>}
+    <Button
+      variant='contained'
+      color='primary'
+      onClick={()=>setView('mainMenu')}
+    >Leave</Button>
+  </div>
+);
 
 const buttonStyle = {height: '40px'};
 

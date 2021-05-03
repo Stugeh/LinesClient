@@ -1,8 +1,12 @@
 import React, {useState, useEffect} from 'react';
 
 import {makeStyles} from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+
+import {
+  TextField, Button, Dialog,
+  DialogActions, DialogContent,
+} from '@material-ui/core';
+
 import {useField} from '../hooks/formHook';
 import axios from 'axios';
 
@@ -10,6 +14,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 
 const Login = ({setView, setNotification}) => {
+  const [open, setOpen] = useState(false);
   const {reset: usernameReset, ...username} = useField('text', 'username');
   const {reset: passwordReset, ...password} = useField('password', 'password');
   const classes = useStyles();
@@ -31,9 +36,6 @@ const Login = ({setView, setNotification}) => {
       username: username.value,
       password: password.value,
     };
-    // if (!userExists(username)) {
-    //   createUser(user, requests.createUser);
-    // }
     postLogin(user, requests.login, setNotification, setView);
     usernameReset();
     passwordReset();
@@ -52,27 +54,54 @@ const Login = ({setView, setNotification}) => {
         >
           submit
         </Button>
+        <Button
+          variant='contained'
+          color='secondary'
+          onClick={()=> setOpen(true)}
+        >
+        create new
+        </Button>
+
+        <Dialog open={open} onClose={()=> setOpen(false)}>
+          <DialogContent>
+            <TextField {...username}/><br/>
+            <TextField {...password}/><br/>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={()=> {
+              createUser({
+                username: username.value,
+                password: password.value,
+              },
+              requests.createUser,
+              );
+              setOpen(false);
+            }}
+            >
+              Create
+            </Button>
+            <Button onClick={()=> setOpen(false)}>Cancel</Button>
+          </DialogActions>
+        </Dialog>
       </form>
     </div>
   );
 };
 
 
-// const createUser = async (user, req) => {
-//   if (!req.method) {
-//     return null;
-//   }
-//   const request = {
-//     method: req.method,
-//     url: req.href,
-//     crossDomain: true,
-//     data: user,
-//   };
-//   console.log(`request`, request);
-//   const res = await axios.request(request);
-
-//   return res;
-// };
+const createUser = async (user, req) => {
+  if (!req.method) {
+    return null;
+  }
+  const request = {
+    method: req.method,
+    url: req.href,
+    crossDomain: true,
+    data: user,
+  };
+  const res = await axios.request(request);
+  return res;
+};
 
 const postLogin = async (user, req, setNotification, setView) => {
   if (!req.method) {
