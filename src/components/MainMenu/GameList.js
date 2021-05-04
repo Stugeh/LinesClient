@@ -7,14 +7,13 @@ import {
 
 import {useField} from '../../hooks/formHook';
 
+const USERNAME = window.localStorage.getItem('username');
 const API_URL = process.env.REACT_APP_API_URL;
 const HEADERS = {
   headers: {
     'Authorization': window.localStorage.getItem('authToken'),
   },
 };
-
-const USERNAME = window.localStorage.getItem('username');
 
 const GameList = ({setGameUri, setView, gameUri}) => {
   // eslint-disable-next-line no-unused-vars
@@ -28,6 +27,17 @@ const GameList = ({setGameUri, setView, gameUri}) => {
   }, []);
 
   const filteredGames = filterByHost(games, search.value);
+
+  // Click handler for the join button
+  const handleJoin = () => {
+    setGameUri(game['@controls'].self.href);
+    setView('game');
+    axios.put(
+        `${game['@controls'].self.href}join/`,
+        {user: USERNAME, rule: game.rule},
+        HEADERS,
+    );
+  };
 
   return (
     <TableContainer
@@ -61,15 +71,7 @@ const GameList = ({setGameUri, setView, gameUri}) => {
                   variant='contained'
                   color='primary'
                   style={{marginRight: '5px'}}
-                  onClick={() => {
-                    setGameUri(game['@controls'].self.href);
-                    setView('game');
-                    axios.put(
-                        `${game['@controls'].self.href}join/`,
-                        {user: USERNAME, rule: game.rule},
-                        HEADERS,
-                    );
-                  }}
+                  onClick={handleJoin}
                 >
                   join
                 </Button>
@@ -86,6 +88,8 @@ const GameList = ({setGameUri, setView, gameUri}) => {
   );
 };
 
+
+// Filters the list of available games by the players in them
 const filterByHost = (games, search) => {
   const filtered = search === '' ? games :
   games.filter((game) =>

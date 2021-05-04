@@ -15,12 +15,13 @@ const HEADERS = {
 };
 
 const CreateRule = ({setView, setNotification}) => {
-  const classes = useStyles();
   const {reset: rowsReset, ...rows} = useField('number', 'rows');
   const {reset: columnsReset, ...columns} = useField('number', 'columns');
   const {reset: ticksReset, ...ticks} = useField('number', 'ticks to win');
   const {reset: nameReset, ...name} = useField('text', 'rule set name');
+  const classes = useStyles();
 
+  // Makes new rule set in the database
   const handleCreate = async (event) => {
     event.preventDefault();
     const rules = {
@@ -35,6 +36,7 @@ const CreateRule = ({setView, setNotification}) => {
       setView('mainMenu');
     }
   };
+
   return (
     <div className='gameSetup'>
       <h1 className='setupHeader'>Create new Rule set</h1>

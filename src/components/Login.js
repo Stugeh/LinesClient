@@ -14,15 +14,16 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 
 const Login = ({setView, setNotification}) => {
-  const [open, setOpen] = useState(false);
   const {reset: usernameReset, ...username} = useField('text', 'username');
   const {reset: passwordReset, ...password} = useField('password', 'password');
-  const classes = useStyles();
+  const [open, setOpen] = useState(false);
   const [requests, setRequests] = useState({
     login: {},
     createUser: {},
   });
+  const classes = useStyles();
 
+  // Fetches available requests from the API
   useEffect(async () => {
     const apiRes = await getAvailableRequests();
     const loginReq = apiRes.data['@controls']['auth-token'];
@@ -30,6 +31,7 @@ const Login = ({setView, setNotification}) => {
     setRequests({login: loginReq, createUser: createUserReq});
   }, []);
 
+  // Click handler for the login button.
   const handleLogin = async (event) => {
     event.preventDefault();
     const user = {
@@ -39,6 +41,18 @@ const Login = ({setView, setNotification}) => {
     postLogin(user, requests.login, setNotification, setView);
     usernameReset();
     passwordReset();
+  };
+
+  // Click handler for the create user button
+  const handleCreateUser = async (event) => {
+    event.preventDefault();
+    createUser({
+      username: username.value,
+      password: password.value,
+    },
+    requests.createUser,
+    );
+    setOpen(false);
   };
 
   return (
@@ -68,16 +82,7 @@ const Login = ({setView, setNotification}) => {
             <TextField {...password}/><br/>
           </DialogContent>
           <DialogActions>
-            <Button onClick={()=> {
-              createUser({
-                username: username.value,
-                password: password.value,
-              },
-              requests.createUser,
-              );
-              setOpen(false);
-            }}
-            >
+            <Button onClick={handleCreateUser}>
               Create
             </Button>
             <Button onClick={()=> setOpen(false)}>Cancel</Button>
@@ -88,7 +93,7 @@ const Login = ({setView, setNotification}) => {
   );
 };
 
-
+// Creates a new user in the api database
 const createUser = async (user, req) => {
   if (!req.method) {
     return null;
@@ -103,6 +108,7 @@ const createUser = async (user, req) => {
   return res;
 };
 
+// logs user in and saves the authToken and username in browser storage
 const postLogin = async (user, req, setNotification, setView) => {
   if (!req.method) {
     return null;
@@ -113,7 +119,6 @@ const postLogin = async (user, req, setNotification, setView) => {
     crossDomain: true,
     data: user,
   });
-  console.log('res :>> ', res);
   if (res.status===200) {
     window.localStorage.setItem('authToken', `Token ${res.data.token}`);
     window.localStorage.setItem('username', user.username);
@@ -131,18 +136,6 @@ const getAvailableRequests = async () => {
   });
   return apiRes;
 };
-
-// const userExists = async (username) => {
-//   const res = await axios.request({
-//     method: 'GET',
-//     url: `${API_URL}/user/${username.value}`,
-//     crossDomain: true,
-//   });
-//   if (res.status === 200) {
-//     return true;
-//   }
-//   return false;
-// };
 
 const useStyles = makeStyles((theme) => ({
   root: {

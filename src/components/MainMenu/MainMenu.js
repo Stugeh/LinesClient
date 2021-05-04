@@ -4,8 +4,6 @@ import {Button} from '@material-ui/core';
 
 import GameList from './GameList';
 
-
-//
 // MainMenu Component.
 // The smaller pieces will eventually be moved to their
 // own component functions in other files.

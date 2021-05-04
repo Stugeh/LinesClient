@@ -16,8 +16,8 @@ const RuleList = ({setSelectedRule}) => {
   // eslint-disable-next-line no-unused-vars
   const {reset: searchReset, ...search} = useField('text', 'search');
   const [ruleList, setRuleList] = useState([]);
-  // const [select, setSelect] =useState('');
 
+  // Fetches the rule list when this component is mounted
   useEffect(async ()=>{
     const rules = await axios.get(`${API_URL}rules/`, HEADERS);
     setRuleList(rules.data.items);
@@ -25,6 +25,7 @@ const RuleList = ({setSelectedRule}) => {
 
   const filteredRules = filterByName(ruleList, search.value);
 
+  // Changes the selected rule set when creating a game
   const selectionChange = (selection) => {
     setSelectedRule(selection.data.name);
   };
@@ -45,7 +46,7 @@ const RuleList = ({setSelectedRule}) => {
   );
 };
 
-
+// Columns headers for the rule list table
 const tableColumns = [
   {field: 'name', headerName: 'Name', width: 130},
   {field: 'rows', headerName: 'Rows', width: 200},
@@ -53,6 +54,7 @@ const tableColumns = [
   {field: 'ticks', headerName: 'Winning ticks', width: 250},
 ];
 
+// creates rows for the rule list table
 const parseRows = (rules) => {
   const data = rules.map((rule) => (
     {
@@ -65,7 +67,7 @@ const parseRows = (rules) => {
   return data;
 };
 
-
+// Filters rules by rule set name
 const filterByName = (games, search) => {
   const filtered = search === '' ? games :
   games.filter((rule) =>

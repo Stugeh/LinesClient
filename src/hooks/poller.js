@@ -1,5 +1,8 @@
 import {useEffect, useRef} from 'react';
 
+
+// Does the callback function defined in the variable callback
+// every x milliseconds defined in the variable delay.
 export const useInterval = (callback, delay) => {
   const savedCallback = useRef();
 
