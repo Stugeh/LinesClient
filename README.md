@@ -4,7 +4,7 @@ A front end client built in react.js for Programmable Web Project course at Univ
 
 ## To run this app you first need to run the api locally
 
-The instructions for that can be found in the read me of the api here: https://github.com/samharju/PWP
+The instructions for that can be found in the README of the api here: https://github.com/samharju/PWP
 
 As long as you have npm installed running this app should be as simple as navigating to the root directory and running 
 
