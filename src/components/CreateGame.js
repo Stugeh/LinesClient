@@ -3,15 +3,16 @@ import axios from 'axios';
 import {Button} from '@material-ui/core';
 import RuleList from './RuleList';
 
-const API_URL = process.env.REACT_APP_API_URL;
-const HEADERS = {
-  headers: {
-    'Authorization': window.localStorage.getItem('authToken'),
-  },
-};
 
 const CreateGame = ({setView, setGameUri, setNotification}) => {
   const [selectedRule, setSelectedRule] = useState('');
+
+  const API_URL = process.env.REACT_APP_API_URL;
+  const HEADERS = {
+    headers: {
+      'Authorization': window.localStorage.getItem('authToken'),
+    },
+  };
 
   const makeGame = async () => {
     const res = await axios.post(

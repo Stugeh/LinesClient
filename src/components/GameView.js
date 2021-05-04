@@ -3,12 +3,6 @@ import axios from 'axios';
 import {Button} from '@material-ui/core';
 import {useInterval} from '../hooks/poller';
 
-const HEADERS = {
-  headers: {
-    'Authorization': window.localStorage.getItem('authToken'),
-  },
-};
-const USERNAME = window.localStorage.getItem('username');
 
 const GameView = ({gameUri, setView}) => {
   const [gameBoard, setGameBoard] = useState([]);
@@ -17,6 +11,12 @@ const GameView = ({gameUri, setView}) => {
   const [playerChar, setPlayerChar] = useState('X');
   const [turn, setTurn] = useState(0);
 
+  const USERNAME = window.localStorage.getItem('username');
+  const HEADERS = {
+    headers: {
+      'Authorization': window.localStorage.getItem('authToken'),
+    },
+  };
   // set up the local game state when mounting this component
   useEffect(async () => {
     const game = await axios.get(gameUri, HEADERS);

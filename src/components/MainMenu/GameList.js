@@ -7,19 +7,20 @@ import {
 
 import {useField} from '../../hooks/formHook';
 
-const USERNAME = window.localStorage.getItem('username');
-const API_URL = process.env.REACT_APP_API_URL;
-const HEADERS = {
-  headers: {
-    'Authorization': window.localStorage.getItem('authToken'),
-  },
-};
 
 const GameList = ({setGameUri, setView, gameUri}) => {
   // eslint-disable-next-line no-unused-vars
   const {reset: searchReset, ...search} = useField('text', 'search');
   // eslint-disable-next-line no-unused-vars
   const [games, setGames] = useState([]);
+
+  const USERNAME = window.localStorage.getItem('username');
+  const API_URL = process.env.REACT_APP_API_URL;
+  const HEADERS = {
+    headers: {
+      'Authorization': window.localStorage.getItem('authToken'),
+    },
+  };
 
   useEffect(async () => {
     const res = await axios.get(`${API_URL}games`, HEADERS);

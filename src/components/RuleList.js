@@ -4,18 +4,18 @@ import {DataGrid} from '@material-ui/data-grid';
 import {TextField} from '@material-ui/core';
 import {useField} from '../hooks/formHook';
 
-const API_URL = process.env.REACT_APP_API_URL;
-const HEADERS = {
-  headers: {
-    'Authorization': window.localStorage.getItem('authToken'),
-  },
-};
-
 
 const RuleList = ({setSelectedRule}) => {
   // eslint-disable-next-line no-unused-vars
   const {reset: searchReset, ...search} = useField('text', 'search');
   const [ruleList, setRuleList] = useState([]);
+
+  const API_URL = process.env.REACT_APP_API_URL;
+  const HEADERS = {
+    headers: {
+      'Authorization': window.localStorage.getItem('authToken'),
+    },
+  };
 
   // Fetches the rule list when this component is mounted
   useEffect(async ()=>{

@@ -10,8 +10,6 @@ import {
 import {useField} from '../hooks/formHook';
 import axios from 'axios';
 
-const API_URL = process.env.REACT_APP_API_URL;
-
 
 const Login = ({setView, setNotification}) => {
   const {reset: usernameReset, ...username} = useField('text', 'username');
@@ -129,6 +127,7 @@ const postLogin = async (user, req, setNotification, setView) => {
 };
 
 const getAvailableRequests = async () => {
+  const API_URL = process.env.REACT_APP_API_URL;
   const apiRes = await axios.request({
     method: 'GET',
     url: API_URL,

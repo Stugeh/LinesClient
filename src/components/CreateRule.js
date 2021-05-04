@@ -7,12 +7,6 @@ import {makeStyles} from '@material-ui/core/styles';
 import {useField} from '../hooks/formHook';
 import MainMenu from './MainMenu/MainMenu';
 
-const API_URL = process.env.REACT_APP_API_URL;
-const HEADERS = {
-  headers: {
-    'Authorization': window.localStorage.getItem('authToken'),
-  },
-};
 
 const CreateRule = ({setView, setNotification}) => {
   const {reset: rowsReset, ...rows} = useField('number', 'rows');
@@ -20,6 +14,13 @@ const CreateRule = ({setView, setNotification}) => {
   const {reset: ticksReset, ...ticks} = useField('number', 'ticks to win');
   const {reset: nameReset, ...name} = useField('text', 'rule set name');
   const classes = useStyles();
+
+  const API_URL = process.env.REACT_APP_API_URL;
+  const HEADERS = {
+    headers: {
+      'Authorization': window.localStorage.getItem('authToken'),
+    },
+  };
 
   // Makes new rule set in the database
   const handleCreate = async (event) => {
