@@ -10,16 +10,6 @@ As long as you have npm installed running this app should be as simple as naviga
 
 `npm install`
 and
-`npm run dev`
-
-On windows you need to change the line
-
-`"dev": "REACT_APP_API_URL=http://127.0.0.1:8000/api/ npm start",`
-
-to `set "REACT_APP_API_URL=http://127.0.0.1:8000/api/" && npm start` if you're running on CMD or to
-`($env:REACT_APP_API_URL="http://127.0.0.1:8000/api/") -and (npm start)` if using powershell.
-
-in the file package.json before executing `npm run dev`.
-
+`npm run dev` or either `npm run cmd` or `npm run powershell` depending on which shell youre using 
 
 After which the application should pop up in your browser.
