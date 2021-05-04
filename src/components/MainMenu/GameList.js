@@ -30,7 +30,7 @@ const GameList = ({setGameUri, setView, gameUri}) => {
   const filteredGames = filterByHost(games, search.value);
 
   // Click handler for the join button
-  const handleJoin = () => {
+  const handleJoin = (game) => {
     setGameUri(game['@controls'].self.href);
     setView('game');
     axios.put(
@@ -72,7 +72,7 @@ const GameList = ({setGameUri, setView, gameUri}) => {
                   variant='contained'
                   color='primary'
                   style={{marginRight: '5px'}}
-                  onClick={handleJoin}
+                  onClick={() => handleJoin(game)}
                 >
                   join
                 </Button>
