@@ -8,6 +8,8 @@ import Login from './components/Login';
 import GameView from './components/GameView';
 import Notification from './components/Notification';
 
+import {Button} from '@material-ui/core';
+
 const App = () => {
   const [view, setView] = useState('mainMenu');
   const [gameUri, setGameUri] = useState('');
@@ -24,6 +26,20 @@ const App = () => {
 
   return (
     <div>
+      {view !== 'login' ?
+      <Button
+        variant='contained'
+        color='secondary'
+        onClick={() => {
+          window.localStorage.removeItem('authToken');
+          window.localStorage.removeItem('username');
+          setView('login');
+        }}
+      >
+        logout
+      </Button>:
+      null}
+
       <Notification
         notification={notification}
         setNotification={setNotification}
