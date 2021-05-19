@@ -31,7 +31,9 @@ const CreateRule = ({setView, setNotification}) => {
       winning_tick_count: ticks.value,
       name: name.value,
     };
-    const ruleRes = await axios.post(`${API_URL}rules/`, rules, HEADERS);
+    const ruleRes = await axios
+        .post(`${API_URL}rules/`, rules, HEADERS);
+    console.log('res.headers :>> ', ruleRes.headers);
     if (ruleRes.status===201) {
       setNotification({open: true, message: 'Ruleset created!'});
       setView('mainMenu');

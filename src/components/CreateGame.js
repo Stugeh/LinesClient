@@ -21,9 +21,10 @@ const CreateGame = ({setView, setGameUri, setNotification}) => {
         HEADERS,
     );
     if (res.status===201) {
+      console.log('res :>> ', res);
       setNotification('Created game');
       setGameUri(res.headers.location);
-      setView('game');
+      res.headers.location ? setView('game') : null;
     }
   };
 
