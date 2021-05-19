@@ -13,3 +13,5 @@ and
 `npm run dev` or either `npm run cmd` or `npm run powershell` depending on which shell youre using 
 
 After which the application should pop up in your browser.
+
+the client can also be used at http://gomoku-clnt.herokuapp.com/
